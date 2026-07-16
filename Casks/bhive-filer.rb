@@ -12,7 +12,7 @@ cask "bhive-filer" do
 
   # The app updates itself via Sparkle after install.
   auto_updates true
-  depends_on macos: ">= :sequoia"
+  depends_on macos: :sequoia
 
   app "bHive Filer.app"
 
