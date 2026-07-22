@@ -15,10 +15,15 @@ cask "bhive-filer" do
   # 2.0 requires macOS 26 (LSMinimumSystemVersion 26.0). Without this, a Mac on
   # 15 installs a build that cannot launch — the cask URL always serves latest.
   depends_on macos: :tahoe
+  # The app has only ever been built for Apple Silicon, and Tahoe still runs on
+  # the last Intel Macs — so the OS floor alone does not keep this off a machine
+  # that cannot execute it.
+  depends_on arch: :arm64
 
-  # Renamed in 2.0: the bundle is "bHive.app", not "bHive Filer.app". An
-  # upgrade from a 1.x install leaves the old bundle behind unless it is named
-  # here, so the old name is declared as the thing being replaced.
+  # Renamed in 2.0: the bundle is "bHive.app", not "bHive Filer.app". Homebrew
+  # removes the old bundle on upgrade from its own record of what it installed,
+  # so the old name needs no stanza here — and must not get one, since a second
+  # `app` would make brew expect both bundles inside the DMG.
   app "bHive.app"
 
   zap trash: [
